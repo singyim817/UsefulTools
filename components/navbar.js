@@ -1,57 +1,94 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button';
-import MenuIcon from '@material-ui/icons/Menu';
-import Link from 'next/link'
-import JSONConverter from '../pages/jsonconverter';
-// import ModalDialog from './ModalDialog';
+import * as React from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Drawer from '@mui/material/Drawer';
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
 
-const useStyles = makeStyles(theme => ({
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
-}));
+export default function aAppBar() {
 
-const Navbar = () => {
-  const classes = useStyles();
-  const [open, setOpen] = useState(false);
+    const [state, setState] = React.useState({
+        left: false,
+      });
 
-  const handleOpen = () => {
-    setOpen(true);
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
+      return;
+    }
+
+    setState({ ...state, [anchor]: open });
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const list = () => (
+    <Box
+      sx={250}
+      role="presentation"
+      onClick={toggleDrawer('left', false)}
+      onKeyDown={toggleDrawer('left', false)}
+    >
+      <List>
+        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+          <ListItem button key={text}>
+            <ListItemIcon>
+              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+            </ListItemIcon>
+            <ListItemText primary={text} />
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+      <List>
+        {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          <ListItem button key={text}>
+            <ListItemIcon>
+              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+            </ListItemIcon>
+            <ListItemText primary={text} />
+          </ListItem>
+        ))}
+      </List>
+    </Box>
+  );
 
   return (
-    <AppBar position="static">
-      <Toolbar>
-        <IconButton
-          edge="start"
-          color="inherit"
-          aria-label="menu"
-          className={classes.menuButton}
-        >
-          <MenuIcon />
-        </IconButton>
-        <Typography variant="h6" className={classes.title}>
-          Title
-        </Typography>
-        {/* <Button color="inherit" onClick={handleOpen}>
-          Signup
-        </Button> */}
-      </Toolbar>
-      {/* <ModalDialog open={open} handleClose={handleClose} /> */}
-    </AppBar>
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static">
+        <Toolbar>
+            <React.Fragment key={'left'}>
+                <IconButton
+                    onClick={toggleDrawer('left', true)}
+                    size="large"
+                    edge="start"
+                    color="inherit"
+                    aria-label="menu"
+                    sx={{ mr: 2 }}
+                >
+                    <MenuIcon />
+                </IconButton>
+                
+                <Drawer
+                    anchor={'left'}
+                    open={state['left']}
+                    onClose={toggleDrawer('left', false)}
+                >
+                    {list()}
+                </Drawer>
+            </React.Fragment>
+            
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Sing Tools
+          </Typography>
+        </Toolbar>
+      </AppBar>
+    </Box>
   );
-};
-
-export default Navbar;
+}
