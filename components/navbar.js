@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import Drawer from '@mui/material/Drawer';
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import Link from '@mui/material/Link';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
@@ -44,7 +45,15 @@ export default function aAppBar() {
             <ListItemText primary={text} />
           </ListItem>
         ))}
+        <ListItem button key='item-jsonconverter' component={Link} href="/jsonconverter">
+            <ListItemIcon>
+                <InboxIcon />
+            </ListItemIcon>
+            <ListItemText primary={'JSON Converter'} />
+          </ListItem>
+          
       </List>
+      
       <Divider />
       <List>
         {['All mail', 'Trash', 'Spam'].map((text, index) => (
