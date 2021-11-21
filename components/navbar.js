@@ -15,7 +15,7 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 
-export default function aAppBar() {
+export default function BasicAppBar({ children }) {
 
     const [state, setState] = React.useState({
         left: false,
@@ -45,11 +45,11 @@ export default function aAppBar() {
             <ListItemText primary={text} />
           </ListItem>
         ))}
-        <ListItem button key='item-jsonconverter' component={Link} href="/jsonconverter">
+        <ListItem button key='item-jsonlint' component={Link} href="/jsonlint">
             <ListItemIcon>
                 <InboxIcon />
             </ListItemIcon>
-            <ListItemText primary={'JSON Converter'} />
+            <ListItemText primary={'JSON Lint'} />
           </ListItem>
           
       </List>
@@ -98,6 +98,8 @@ export default function aAppBar() {
           </Typography>
         </Toolbar>
       </AppBar>
+      
+      <main>{children}</main>
     </Box>
   );
 }
