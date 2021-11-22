@@ -1,26 +1,23 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
-import Paper from '@mui/material/Paper';
 
 function JSONConverter() {
 	
-	const [value, setValue] = React.useState('text');
-	const [value2, setValue2] = React.useState('');
+	const [valueBefore, setValueBefore] = React.useState('text');
+	const [valueAfter, setValueAfter] = React.useState('');
 
 	const handleChange = (event) => {
-		setValue(event.target.value);
-	 };
-
+		setValueBefore(event.target.valueBefore);
+	};
 
 	const formatJSON = () => {
 		try {
-			var a = JSON.parse(value);
-			setValue2(JSON.stringify(a, null, 4));
+			var a = JSON.parse(valueBefore);
+			setValueAfter(JSON.stringify(a, null, 4));
 		} catch(e) {
 			alert('not JSON format');
 		}
@@ -28,8 +25,8 @@ function JSONConverter() {
 	
 	const minifyJSON = () => {
 		try {
-			var a = JSON.parse(value);
-			setValue2(JSON.stringify(a));
+			var a = JSON.parse(valueBefore);
+			setValueAfter(JSON.stringify(a));
 		} catch(e) {
 			alert('not JSON format');
 		}
@@ -48,7 +45,7 @@ function JSONConverter() {
 							minRows={3}
 							placeholder="paste text here..."
 							style={{ width: '100%', height: '60vh' }}					
-							value={value}
+							value={valueBefore}
 							onChange={handleChange}
 						/>
 						
@@ -63,7 +60,7 @@ function JSONConverter() {
 
 					</Grid>
 					<Grid item xs={6}>
-						<pre>{value2}</pre>
+						<pre>{valueAfter}</pre>
 					</Grid>
 				</Grid>
 

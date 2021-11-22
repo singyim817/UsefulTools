@@ -31,31 +31,29 @@ export default function BasicAppBar({ children }) {
 
   const list = () => (
     <Box
-      sx={250}
+    //   sx={250}
       role="presentation"
       onClick={toggleDrawer('left', false)}
       onKeyDown={toggleDrawer('left', false)}
     >
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
+        <ListItem button key='item-base64' component={Link} href="/base64">
             <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                <MailIcon />
             </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+            <ListItemText primary={'Base64 Converter'} />
+        </ListItem>
         <ListItem button key='item-jsonlint' component={Link} href="/jsonlint">
             <ListItemIcon>
                 <InboxIcon />
             </ListItemIcon>
             <ListItemText primary={'JSON Lint'} />
-          </ListItem>
+        </ListItem>
           
       </List>
       
       <Divider />
-      <List>
+      {/* <List>
         {['All mail', 'Trash', 'Spam'].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>
@@ -64,7 +62,7 @@ export default function BasicAppBar({ children }) {
             <ListItemText primary={text} />
           </ListItem>
         ))}
-      </List>
+      </List> */}
     </Box>
   );
 
