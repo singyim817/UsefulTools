@@ -43,11 +43,23 @@ export default function BasicAppBar({ children }) {
             </ListItemIcon>
             <ListItemText primary={'Base64 Converter'} />
         </ListItem>
-        <ListItem button key='item-jsonlint' component={Link} href="/jsonlint">
+        <ListItem button key='item-jsonformatter' component={Link} href="/jsonformatter">
             <ListItemIcon>
                 <InboxIcon />
             </ListItemIcon>
-            <ListItemText primary={'JSON Lint'} />
+            <ListItemText primary={'JSON Formatter'} />
+        </ListItem>
+        <ListItem button key='item-xmlformatter' component={Link} href="/xmlformatter">
+            <ListItemIcon>
+                <InboxIcon />
+            </ListItemIcon>
+            <ListItemText primary={'XML Formatter'} />
+        </ListItem>
+        <ListItem button key='item-xmlformatter' component={Link} href="/jsonxml">
+            <ListItemIcon>
+                <InboxIcon />
+            </ListItemIcon>
+            <ListItemText primary={'JSON XML Converter'} />
         </ListItem>
           
       </List>

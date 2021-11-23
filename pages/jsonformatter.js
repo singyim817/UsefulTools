@@ -1,23 +1,29 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
+import Chip from '@mui/material/Chip';
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import DoneIcon from '@mui/icons-material/Done';
 
 function JSONConverter() {
 	
-	const [valueBefore, setValueBefore] = React.useState('text');
+	const [valueBefore, setValueBefore] = React.useState('{"id":"value", "description":"text"}');
 	const [valueAfter, setValueAfter] = React.useState('');
+	const [isCopied, setIsCopied] = React.useState(false);
 
 	const handleChange = (event) => {
-		setValueBefore(event.target.valueBefore);
+		setValueBefore(event.target.value);
+		setIsCopied(false);
 	};
 
 	const formatJSON = () => {
 		try {
 			var a = JSON.parse(valueBefore);
 			setValueAfter(JSON.stringify(a, null, 4));
+			setIsCopied(false);
 		} catch(e) {
 			alert('not JSON format');
 		}
@@ -26,7 +32,8 @@ function JSONConverter() {
 	const minifyJSON = () => {
 		try {
 			var a = JSON.parse(valueBefore);
-			setValueAfter(JSON.stringify(a));
+			setValueAfter(JSON.stringify(a, null, 0));
+			setIsCopied(false);
 		} catch(e) {
 			alert('not JSON format');
 		}
@@ -40,11 +47,12 @@ function JSONConverter() {
 				
 				<Grid container spacing={2}>
 					<Grid item xs={6}>
+                        <h2>Raw text</h2>
 						<TextareaAutosize
 							aria-label="paste text here"
 							minRows={3}
 							placeholder="paste text here..."
-							style={{ width: '100%', height: '60vh' }}					
+							style={{ width: '100%', height: '60vh', overflow: 'auto' }}					
 							value={valueBefore}
 							onChange={handleChange}
 						/>
@@ -60,7 +68,31 @@ function JSONConverter() {
 
 					</Grid>
 					<Grid item xs={6}>
-						<pre>{valueAfter}</pre>
+						<h2>Formatted text</h2>
+						<TextareaAutosize
+							aria-label="paste text here"
+							minRows={3}
+							placeholder="paste text here..."
+							style={{ width: '100%', height: '60vh', overflow: 'auto' }}					
+							value={valueAfter}
+							readonly
+						/>
+						<Grid container spacing={2}>					
+							<Grid item xs={6}>
+								<Button 
+										variant="contained" 
+										onClick={() => {
+											navigator.clipboard.writeText(valueAfter);
+											setIsCopied(true);
+										}} 
+										disabled={valueAfter.length <= 0}>
+									<ContentCopyIcon />Copy
+								</Button>
+							</Grid>
+							<Grid item xs={6}>
+								{ isCopied ? (<Chip label="Successful" color="success" icon={<DoneIcon />} />) : '' }
+							</Grid>
+						</Grid>
 					</Grid>
 				</Grid>
 
