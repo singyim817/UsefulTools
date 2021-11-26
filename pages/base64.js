@@ -159,8 +159,7 @@ function Base64Converter() {
 			 </Box>
             <Grid item xs={12}>
               <Button variant="contained" 
-				  		onClick={() => navigator.clipboard.writeText(valueAfter)} disabled={valueAfter.length <= 0}
-					  disabled={!isValidFile}>
+				  		onClick={() => navigator.clipboard.writeText(valueAfter)} disabled={valueAfter.length <= 0 || !isValidFile}>
                 <InsertDriveFileOutlinedIcon />Download
               </Button>
             </Grid>
