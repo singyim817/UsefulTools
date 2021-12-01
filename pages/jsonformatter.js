@@ -75,7 +75,7 @@ function JSONConverter() {
 							placeholder="paste text here..."
 							style={{ width: '100%', height: '60vh', overflow: 'auto' }}					
 							value={valueAfter}
-							readonly
+							readOnly
 						/>
 						<Grid container spacing={2}>					
 							<Grid item xs={6}>

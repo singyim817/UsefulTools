@@ -55,7 +55,7 @@ export default function BasicAppBar({ children }) {
             </ListItemIcon>
             <ListItemText primary={'XML Formatter'} />
         </ListItem>
-        <ListItem button key='item-xmlformatter' component={Link} href="/jsonxml">
+        <ListItem button key='item-xmljson' component={Link} href="/jsonxml">
             <ListItemIcon>
                 <InboxIcon />
             </ListItemIcon>
